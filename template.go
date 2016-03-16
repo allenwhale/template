@@ -3,7 +3,9 @@ package template
 import (
 	"bytes"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/mohae/deepcopy"
+	//"io"
 	"io/ioutil"
 	"path/filepath"
 	//"time"
@@ -236,13 +238,9 @@ func (t *Template) Render(writer *bytes.Buffer, filePath string, data GenerateDa
 	Generate(t.templ[filePath], t, writer, data)
 }
 
-//func main() {
-//templ := NewTemplate()
-//templ.LoadTemplate("templ", []string{".html"})
-////fmt.Println(templ.templ)
-//t := time.Now()
-//var writer bytes.Buffer
-//templ.Render(&writer, "templ/include.html", GenerateData{})
-//fmt.Println(time.Now().Sub(t))
-//fmt.Println(writer.String())
-//}
+func (t *Template) GinRender(c *gin.Context, filePath string, data GenerateData) {
+	c.Writer.Header().Set("Content-Type", "text/html charset=utf8")
+	var writer bytes.Buffer
+	t.Render(&writer, filePath, data)
+	writer.WriteTo(c.Writer)
+}
