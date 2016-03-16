@@ -116,19 +116,8 @@ var testdatas = []testdata{
 	},
 }
 
-func TestParse(t *testing.T) {
-	for _, test := range testdatas {
-		tr := TemplateReader{
-			text:   []byte(test.input),
-			length: len([]byte(test.input)),
-		}
-		p := fmt.Sprint(Parse(&tr, "", ""))
-		if p != test.output {
-			t.Error(string(test.input), "\nget   :", p, "\nexcept:", test.output)
-		}
-	}
-}
 func BenchmarkParse(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		for _, test := range testdatas {
 			//test := testdatas[0]

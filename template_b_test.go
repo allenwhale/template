@@ -13,18 +13,8 @@ func New() *Template {
 	return templ
 }
 
-func TestTemplateSimple(t *testing.T) {
-	templ := New()
-	var writer bytes.Buffer
-	templ.Render(&writer, "test/simple.templ", GenerateData{})
-	except, _ := ioutil.ReadFile("test/simple.html")
-	if bytes.Compare(except, writer.Bytes()) != 0 {
-		t.Error("test/simple.templ")
-		t.Error("get:   ", len(writer.Bytes()))
-		t.Error("except:", len(except))
-	}
-}
 func BenchmarkTemplateSimple(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/simple"
 	templ := New()
 	var writer bytes.Buffer
@@ -37,6 +27,7 @@ func BenchmarkTemplateSimple(b *testing.B) {
 	}
 }
 func BenchmarkTemplateLong4k(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/long4k"
 	templ := New()
 	var writer bytes.Buffer
@@ -49,6 +40,7 @@ func BenchmarkTemplateLong4k(b *testing.B) {
 	}
 }
 func BenchmarkTemplateLong128k(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/long128k"
 	templ := New()
 	var writer bytes.Buffer
@@ -61,6 +53,7 @@ func BenchmarkTemplateLong128k(b *testing.B) {
 	}
 }
 func BenchmarkTemplateLongDiscrete4k(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/long_discrete4k"
 	templ := New()
 	var writer bytes.Buffer
@@ -73,6 +66,7 @@ func BenchmarkTemplateLongDiscrete4k(b *testing.B) {
 	}
 }
 func BenchmarkTemplateLongDiscrete128k(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/long_discrete128k"
 	templ := New()
 	var writer bytes.Buffer
@@ -85,6 +79,7 @@ func BenchmarkTemplateLongDiscrete128k(b *testing.B) {
 	}
 }
 func BenchmarkTemplateFor(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/for"
 	templ := New()
 	var writer bytes.Buffer
@@ -97,6 +92,7 @@ func BenchmarkTemplateFor(b *testing.B) {
 	}
 }
 func BenchmarkTemplateForLarge(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/for_large"
 	templ := New()
 	var writer bytes.Buffer
@@ -109,6 +105,7 @@ func BenchmarkTemplateForLarge(b *testing.B) {
 	}
 }
 func BenchmarkTemplateForNest(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/for_nest"
 	templ := New()
 	var writer bytes.Buffer
@@ -122,6 +119,7 @@ func BenchmarkTemplateForNest(b *testing.B) {
 	}
 }
 func BenchmarkTemplateForNestLarge(b *testing.B) {
+	b.ReportAllocs()
 	filePath := "test/for_nest_large"
 	templ := New()
 	var writer bytes.Buffer
