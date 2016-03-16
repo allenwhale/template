@@ -28,6 +28,9 @@ func eval(exp string, data GenerateData) []interface{} {
 	for key, value := range data {
 		s.Set(key, value)
 	}
+	if exp == "" {
+		exp = "true"
+	}
 	evalRes, _ := s.Eval("return " + exp)
 	var res []interface{}
 	switch evalRes.(type) {
